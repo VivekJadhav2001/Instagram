@@ -2,11 +2,17 @@ import React from 'react'
 import Stories from '../../components/Stories/Stories'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import { ToastContainer, toast } from 'react-toastify';
+import SirSidebar from '../../components/SirSidebar/SirSidebar';
+import ContentPage from '../../components/ContentPage/ContentPage';
 function Home() {
   return (
-    <div className='relative h-screen w-screen bg-black text-white'>
+    <div className='relative min-h-screen p-4 w-screen bg-black text-white overflow-x-hidden'>
+      {/* relative min-h-screen p-4 w-screen bg-black text-white overflow-x-hidden */}
       <Stories/>
       <Sidebar/>
+      {/* <SirSidebar/> */}
+
+      <ContentPage/>
 
       <ToastContainer/>
       

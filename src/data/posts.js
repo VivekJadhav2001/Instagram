@@ -1,0 +1,47 @@
+export const posts = [
+  {
+    id: 1,
+    username: "formula_aerodynamics",
+    location: "Autódromo José Carlos Pace",
+    images: ["https://images.pexels.com/photos/29320677/pexels-photo-29320677.jpeg", "https://images.pexels.com/photos/29406740/pexels-photo-29406740.jpeg"],
+    likes: "29.1K",
+    caption: "Throwback to these awesome pictures of F1 cars in the rain!",
+    time: "20h",
+  },
+  {
+    id: 2,
+    username: "redbullracing",
+    location: "Silverstone Circuit",
+    images: ["https://images.pexels.com/photos/29327972/pexels-photo-29327972.jpeg", "https://images.pexels.com/photos/29327943/pexels-photo-29327943.jpeg"],
+    likes: "85.4K",
+    caption: "Pushing limits at Silverstone 💪🔥 #F1 #RedBullRacing",
+    time: "1d",
+  },
+  {
+    id: 3,
+    username: "mercedesamgf1",
+    location: "Spa-Francorchamps",
+    images: ["https://images.pexels.com/photos/29382697/pexels-photo-29382697.jpeg", "https://images.pexels.com/photos/29382702/pexels-photo-29382702.jpeg"],
+    likes: "72.9K",
+    caption: "Wet weather challenge 🌧 but still on pace. #SpaGP",
+    time: "3h",
+  },
+  {
+    id: 4,
+    username: "f1_techzone",
+    location: "Monaco",
+    images: ["https://images.pexels.com/photos/29382696/pexels-photo-29382696.jpeg", "https://images.pexels.com/photos/32449925/pexels-photo-32449925.jpeg"],
+    likes: "41.2K",
+    caption: "Monaco streets + precision driving = perfection 🏎️✨",
+    time: "2d",
+  },
+  {
+    id: 5,
+    username: "mclaren",
+    location: "Suzuka Circuit",
+    images: ["https://images.pexels.com/photos/28832062/pexels-photo-28832062.jpeg", "https://images.pexels.com/photos/29320677/pexels-photo-29320677.jpeg"],
+    likes: "66.7K",
+    caption: "Orange flash at Suzuka 🧡🇯🇵 #McLaren #F1",
+    time: "5h",
+  }
+];
