@@ -7,6 +7,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { CgMoreO } from "react-icons/cg";
 import { toast } from 'react-toastify';
 import postApi from '../../utils/postApi';
+import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
   //   const messageCount = 3; // number to show on red badge
@@ -14,6 +15,11 @@ function Sidebar() {
   const [messageCount, setMessageCount] = useState(3)
 
   const inputFileRef = useRef()
+
+
+  const [token] = useState(()=> localStorage.getItem("token"))
+
+  const navigate = useNavigate()
 
 
   async function handleFileInput(e) {
@@ -36,7 +42,7 @@ function Sidebar() {
     const url = await 
     uploadFileToCloudinary(file)
 
-    await createPost("merlin Engine mark-42", url)
+    await createPost("Du Du Du Max verstappen!!!!", url)
 
 
 
@@ -82,7 +88,13 @@ function Sidebar() {
       <LuInstagram size={30} className="mb-15 cursor-pointer" />
 
       <div className="flex flex-col justify-center items-center gap-8 relative">
-        <MdHomeFilled size={30} className="cursor-pointer" />
+        <button className="cursor-pointer" 
+        onClick={() => {
+            if (token) navigate("/")
+          }}
+        >
+        <MdHomeFilled size={30}  />
+        </button>
         <IoSearch size={30} className="cursor-pointer" />
         <FaRegCompass size={30} className="cursor-pointer" />
         <LuInstagram size={30} className="cursor-pointer" />

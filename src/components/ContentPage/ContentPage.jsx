@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaRegComment, FaPaperPlane, FaBookmark } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 import postApi from "../../utils/postApi";
+import { toast } from "react-toastify";
 
 function ContentPage() {
     const [allPosts, setAllPosts] = useState([]);
+    const [dropDown, setDropDown] = useState(false)
 
     async function getAllPosts() {
         try {
@@ -16,6 +19,42 @@ function ContentPage() {
         }
     }
 
+
+    // function to Delete post
+    async function deletePost(postId) {
+        console.log(postId)
+        try {
+            const res = await postApi.delete(`/delete/${postId}`);
+            toast.success('Post deleted successfully', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            
+            console.log(res,"Response on click of delete")
+            await getAllPosts()
+
+        } catch (error) {
+            console.log(error, "Error from deletePost function")
+        }
+    }
+
+    //function to Update post
+    // async function updatePost(postId) {
+    //     ///update/:id
+    //     try {
+    //         const res = await postApi.put(`update/${postId}`,{text:"Kimi Tailibani",image:"https://res.cloudinary.com/daggocniz/image/upload/v1761809500/profile-pics/bklgwizjycwqqe0ofgfh.png"})
+    //         console.log(res,"Response from updatePost")
+    //     } catch (error) {
+    //         console.log(error,"ERROR from updatepost")
+    //     }
+    // }
+
     useEffect(() => {
         getAllPosts();
     }, []);
@@ -25,7 +64,7 @@ function ContentPage() {
             {allPosts.map((post) => (
                 <div key={post._id} className="p-3 border-b border-gray-800">
                     {/* Header */}
-                    <div className="flex justify-between items-center mb-2">
+                    <div className="relative flex justify-between items-center mb-2">
                         <div className="flex items-center gap-2">
                             <div className="bg-linear-to-tr from-yellow-400 via-pink-500 to-purple-600 p-0.5 rounded-full">
                                 <img
@@ -39,7 +78,23 @@ function ContentPage() {
                                 <p className="text-xs text-gray-400">Hyderabad</p>
                             </div>
                         </div>
-                        <FiMoreHorizontal size={20} />
+                        {dropDown ?
+                            <div className="absolute rounded-3xl z-40 right-1.5 top-1.5 h-[13vh] w-[10vw] bg-[#000000]">
+                                <IoClose size={20} className="w-full cursor-pointer" onClick={() => setDropDown(prev => !prev)} />
+                                <button className="w-full cursor-pointer hover:bg-gray-700 rounded-2xl"
+                                    onClick={() => deletePost(post._id)}
+                                >
+                                    <span className="text-red-500 w-full text-center font-semibold">Delete Post</span>
+                                </button>
+                                <button className="w-full cursor-pointer hover:bg-gray-700 rounded-2xl"
+                                    onClick={() => updatePost(post._id)}
+                                >
+                                    <span className="text-red-500 w-full text-center font-semibold">Update Post</span>
+                                </button>
+                            </div>
+                            : <FiMoreHorizontal className="cursor-pointer" size={20} onClick={() => setDropDown(prev => !prev)} />
+                        }
+
                     </div>
 
                     {/* Image */}
@@ -64,7 +119,7 @@ function ContentPage() {
                     {/* Likes & Caption */}
                     <p className="font-semibold">{post.likes.length} likes</p>
                     <p>
-                        <span className="font-semibold">{post.user}</span> {post.text}
+                        <span className="font-semibold">{post.user.slice(0,6)}</span> {post.text}
                     </p>
                 </div>
             ))}
