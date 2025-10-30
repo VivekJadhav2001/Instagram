@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaHeart, FaRegComment, FaPaperPlane, FaBookmark } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { posts } from '../../data/posts'
+import postApi from "../../utils/postApi";
+
 function ContentPage() {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [allPosts, setAllPosts] = useState([]);
+
+    async function getAllPosts() {
+        try {
+            const res = await postApi.get("/all-posts");
+            setAllPosts(res.data.data || []);
+        } catch (err) {
+            console.error("Error fetching posts:", err);
+            alert("Failed to get posts. Please refresh the page.");
+        }
+    }
+
+    useEffect(() => {
+        getAllPosts();
+    }, []);
 
     return (
-        <div className=" absolute left-[17.5vw] top-[19vh] max-w-md mx-auto bg-black text-white border border-gray-700 rounded-xl mt-5">
-            {posts.map((post) => (
-                <div key={post.id} className="p-3">
+        <div className="absolute left-[17.5vw] top-[19vh] max-w-md mx-auto bg-black text-white border border-gray-700 rounded-xl mt-5">
+            {allPosts.map((post) => (
+                <div key={post._id} className="p-3 border-b border-gray-800">
                     {/* Header */}
                     <div className="flex justify-between items-center mb-2">
                         <div className="flex items-center gap-2">
@@ -20,44 +35,20 @@ function ContentPage() {
                                 />
                             </div>
                             <div>
-                                <p className="font-semibold">{post.username}</p>
-                                <p className="text-xs text-gray-400">{post.location}</p>
+                                <p className="font-semibold text-sm">{post.user}</p>
+                                <p className="text-xs text-gray-400">Hyderabad</p>
                             </div>
                         </div>
                         <FiMoreHorizontal size={20} />
                     </div>
 
-                    {/* Image carousel */}
+                    {/* Image */}
                     <div className="relative w-full h-80 overflow-hidden rounded-lg">
                         <img
-                            src={post.images[currentIndex]}
+                            src={post.image}
                             alt="post"
                             className="object-cover w-full h-full"
                         />
-                        {post.images.length > 1 && (
-                            <>
-                                <button
-                                    onClick={() =>
-                                        setCurrentIndex((prev) =>
-                                            prev === 0 ? post.images.length - 1 : prev - 1
-                                        )
-                                    }
-                                    className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 p-1 rounded-full"
-                                >
-                                    {"<"}
-                                </button>
-                                <button
-                                    onClick={() =>
-                                        setCurrentIndex((prev) =>
-                                            prev === post.images.length - 1 ? 0 : prev + 1
-                                        )
-                                    }
-                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 p-1 rounded-full"
-                                >
-                                    {">"}
-                                </button>
-                            </>
-                        )}
                     </div>
 
                     {/* Actions */}
@@ -71,15 +62,14 @@ function ContentPage() {
                     </div>
 
                     {/* Likes & Caption */}
-                    <p className="font-semibold">{post.likes} likes</p>
+                    <p className="font-semibold">{post.likes.length} likes</p>
                     <p>
-                        <span className="font-semibold">{post.username}</span> {post.caption}
+                        <span className="font-semibold">{post.user}</span> {post.text}
                     </p>
-                    <p className="text-gray-500 text-sm mt-1">{post.time} ago</p>
                 </div>
             ))}
         </div>
     );
 }
 
-export default ContentPage
+export default ContentPage;
