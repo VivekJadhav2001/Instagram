@@ -20,7 +20,14 @@ createRoot(document.getElementById('root')).render(
         } />
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/myprofile' element={<MyProfile/>}/>
+        <Route
+          path="/myprofile"
+          element={
+            <ProtectedRoutes>
+              <MyProfile />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
