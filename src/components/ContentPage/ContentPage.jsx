@@ -51,7 +51,7 @@ function ContentPage() {
                                 />
                             </div>
                             <div>
-                                <p className="font-semibold text-sm">{post.user}</p>
+                                <p className="font-semibold text-sm">{post.user=="6901c85c7bf58b027f0f1ad4" ? "Vivek Jadhav" : post.user}</p>
                                 <p className="text-xs text-gray-400">Hyderabad</p>
                             </div>
                         </div>

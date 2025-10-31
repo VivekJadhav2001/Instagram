@@ -1,18 +1,20 @@
 import React, { useRef, useState } from 'react'
 import { LuInstagram } from "react-icons/lu";
 import { MdHomeFilled, MdOutlineAddBox } from "react-icons/md";
-import { IoSearch } from "react-icons/io5";
+import { IoClose, IoSearch } from "react-icons/io5";
 import { FaRegCompass, FaRegHeart, FaRegUserCircle, FaRegComment } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgMoreO } from "react-icons/cg";
 import { toast } from 'react-toastify';
 import postApi from '../../utils/postApi';
 import { useNavigate } from 'react-router-dom';
+import userAuthApi from '../../utils/userAuthApi';
 
 function Sidebar() {
   //   const messageCount = 3; // number to show on red badge
 
   const [messageCount, setMessageCount] = useState(3)
+  const [isOpen, setIsOpen] = useState(false)
 
   const inputFileRef = useRef()
 
@@ -85,6 +87,7 @@ function Sidebar() {
   }
 
 
+  //function to create Post
   async function createPost(text, url) {
 
     if (!text || !url) {
@@ -95,6 +98,22 @@ function Sidebar() {
     const createPostRes = await postApi.post("/create", { text, image: url })
 
     console.log(createPostRes, 'create post response')
+  }
+
+
+  //function for Logout
+  async function Logout() {
+    try {
+      const res = await userAuthApi.delete("/logout")
+      console.log(res, "RESPONSE IN LOGOUT")
+      
+      if(res.data.success){
+        localStorage.removeItem("token")
+        navigate("/login", { replace: true });
+      }
+    } catch (err) {
+      console.log(err,"ERROR FROM LOGOUT")
+    }
   }
 
   return (
@@ -155,7 +174,21 @@ function Sidebar() {
 
       <div className="mt-17 flex flex-col justify-center items-center gap-5">
         <GiHamburgerMenu size={30} className="cursor-pointer" />
-        <CgMoreO size={30} className="cursor-pointer" />
+
+        {/* LOGOUT FUNCTIONALITY */}
+
+        {isOpen ?
+          <div className="absolute rounded-3xl z-40 left-20 bottom-1.5 h-[13vh] w-[10vw] bg-[#000000]">
+            <IoClose size={20} className="w-full cursor-pointer" onClick={() => setIsOpen(prev => !prev)} />
+            <button className="w-full cursor-pointer hover:bg-gray-700 rounded-2xl"
+              onClick={() => Logout()}
+            >
+              <span className="text-red-500 w-full text-center font-semibold">Log Out</span>
+            </button>
+          </div>
+          : <CgMoreO size={30} className="cursor-pointer" onClick={()=>setIsOpen(prev => !prev)} />}
+
+
       </div>
     </div>
   );

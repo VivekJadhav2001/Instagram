@@ -136,7 +136,7 @@ function MyProfile() {
             </div>
 
 
-            <div className="w-[80%] h-[60vh] border-t-gray-700 border-t-2 p-10">
+            <div className="w-[80%] mb-32 h-[60vh] border-t-gray-700 border-t-2 p-10 flex">
                 {myPosts.map((post) => (
                     <div key={post._id} className="p-3 border-b border-gray-800">
                         {/* Header */}
@@ -150,7 +150,7 @@ function MyProfile() {
                                     />
                                 </div>
                                 <div>
-                                    <p className="font-semibold text-sm">{post.user}</p>
+                                    <p className="font-semibold text-sm">{post.user=="6901c85c7bf58b027f0f1ad4"&& "Vivek Jadhav"}</p>
                                     <p className="text-xs text-gray-400">Hyderabad</p>
                                 </div>
                             </div>
