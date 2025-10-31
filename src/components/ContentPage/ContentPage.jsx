@@ -20,29 +20,6 @@ function ContentPage() {
     }
 
 
-    // function to Delete post
-    async function deletePost(postId) {
-        console.log(postId)
-        try {
-            const res = await postApi.delete(`/delete/${postId}`);
-            toast.success('Post deleted successfully', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
-            
-            console.log(res,"Response on click of delete")
-            await getAllPosts()
-
-        } catch (error) {
-            console.log(error, "Error from deletePost function")
-        }
-    }
 
     //function to Update post
     // async function updatePost(postId) {
@@ -81,11 +58,6 @@ function ContentPage() {
                         {dropDown ?
                             <div className="absolute rounded-3xl z-40 right-1.5 top-1.5 h-[13vh] w-[10vw] bg-[#000000]">
                                 <IoClose size={20} className="w-full cursor-pointer" onClick={() => setDropDown(prev => !prev)} />
-                                <button className="w-full cursor-pointer hover:bg-gray-700 rounded-2xl"
-                                    onClick={() => deletePost(post._id)}
-                                >
-                                    <span className="text-red-500 w-full text-center font-semibold">Delete Post</span>
-                                </button>
                                 <button className="w-full cursor-pointer hover:bg-gray-700 rounded-2xl"
                                     onClick={() => updatePost(post._id)}
                                 >

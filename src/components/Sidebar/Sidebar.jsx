@@ -17,7 +17,7 @@ function Sidebar() {
   const inputFileRef = useRef()
 
 
-  const [token] = useState(()=> localStorage.getItem("token"))
+  const [token] = useState(() => localStorage.getItem("token"))
 
   const navigate = useNavigate()
 
@@ -39,11 +39,25 @@ function Sidebar() {
       });
     }
 
-    const url = await 
-    uploadFileToCloudinary(file)
+    const url = await
+      uploadFileToCloudinary(file)
 
-    await createPost("Du Du Du Max verstappen!!!!", url)
+    const successfullyCreatedPost = await createPost("Du Du Du Max verstappen!!!!", url)
 
+    if (successfullyCreatedPost) {
+      toast('Post Created', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+
+      await getAllPosts()
+    }
 
 
     // console.log(uploadFile,"uploading file api call post");    
@@ -66,7 +80,7 @@ function Sidebar() {
         throw new Error("Url not found")
       }
     } catch (error) {
-      console.log("error", err)
+      console.log("error", error)
     }
   }
 
@@ -85,15 +99,19 @@ function Sidebar() {
 
   return (
     <div className="fixed left-0 h-screen w-[5vw] top-0 bottom-0 p-2 flex flex-col justify-center items-center text-white">
-      <LuInstagram size={30} className="mb-15 cursor-pointer" />
+      <LuInstagram size={30} className="mb-15 cursor-pointer"
+        onClick={() => {
+          if (token) navigate("/")
+        }}
+      />
 
       <div className="flex flex-col justify-center items-center gap-8 relative">
-        <button className="cursor-pointer" 
-        onClick={() => {
+        <button className="cursor-pointer"
+          onClick={() => {
             if (token) navigate("/")
           }}
         >
-        <MdHomeFilled size={30}  />
+          <MdHomeFilled size={30} />
         </button>
         <IoSearch size={30} className="cursor-pointer" />
         <FaRegCompass size={30} className="cursor-pointer" />

@@ -20,6 +20,8 @@ createRoot(document.getElementById('root')).render(
         } />
         <Route path="/login" element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
+
+        {/* MyProfile secured path */}
         <Route
           path="/myprofile"
           element={
