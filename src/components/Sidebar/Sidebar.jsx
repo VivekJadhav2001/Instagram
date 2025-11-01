@@ -44,7 +44,7 @@ function Sidebar() {
     const url = await
       uploadFileToCloudinary(file)
 
-    const successfullyCreatedPost = await createPost("Du Du Du Max verstappen!!!!", url)
+    const successfullyCreatedPost = await createPost("SN8 Launch", url)
 
     if (successfullyCreatedPost) {
       toast('Post Created', {

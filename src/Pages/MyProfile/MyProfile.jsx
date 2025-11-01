@@ -136,7 +136,7 @@ function MyProfile() {
             </div>
 
 
-            <div className="w-[80%] mb-32 h-[60vh] border-t-gray-700 border-t-2 p-10 flex">
+            <div className="w-[80%] mb-32 border-t-gray-700 border-t-2 p-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {myPosts.map((post) => (
                     <div key={post._id} className="p-3 border-b border-gray-800">
                         {/* Header */}
