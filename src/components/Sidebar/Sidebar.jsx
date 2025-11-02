@@ -169,7 +169,7 @@ function Sidebar() {
 
 
 
-        <FaRegUserCircle size={30} className="cursor-pointer" />
+        <FaRegUserCircle size={30} className="cursor-pointer" onClick={()=>navigate("/myprofile")}/>
       </div>
 
       <div className="mt-17 flex flex-col justify-center items-center gap-5">
